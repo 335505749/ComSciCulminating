@@ -5,7 +5,96 @@
  * Description: GUI on tournament brackets
  */
  
- class TournamentBrackets {
-   public static void main (String[] args) {
-   }
- }
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class TournamentBrackets {
+    public static void main(String[] args) {
+        createWindow();
+    }
+
+    // Create a window to pop up
+    private static void createWindow() {
+        JFrame frame = new JFrame("Choosing File");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        createUI(frame);
+        // set the window size
+        frame.setSize(800, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    private static void createUI(final JFrame frame) {
+        JPanel panel = new JPanel();
+        LayoutManager layout = new FlowLayout();
+        panel.setLayout(layout);
+
+        // set a button to start
+        JButton button = new JButton("Click Me To Choose!");
+        final JLabel label = new JLabel();
+
+
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int option = fileChooser.showOpenDialog(frame);
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    // Get the file
+                    File file = fileChooser.getSelectedFile();
+                    label.setText("File Selected: " + file.getName());
+
+                    // Read the file and split to display
+                    Scanner sc = null;
+                    try {
+                        sc = new Scanner(file);
+                        // Check if there is another line of input
+                        while (sc.hasNextLine()) {
+                            String str = sc.nextLine();
+                            // parse each line using delimiter
+                            Scanner lineScanner = new Scanner(str);
+                            lineScanner.useDelimiter(",");
+                            while (lineScanner.hasNext()) {
+                                String name = lineScanner.next();
+                                String school = lineScanner.next();
+                                String winRate = lineScanner.next();
+                                // Set names into a button
+                                JButton button = new JButton(name);
+                                panel.add(button);
+                                frame.getContentPane().add(panel, BorderLayout.CENTER);
+                            }
+                            lineScanner.close();
+                        }
+                    } catch (IOException exp) {
+                        // TODO Auto-generated catch block
+                        exp.printStackTrace();
+                    } finally {
+                        if (sc != null)
+                            sc.close();
+                    }
+
+                } else {
+                    label.setText("Open command canceled");
+                }
+            }
+        });
+
+        panel.add(button);
+        panel.add(label);
+        frame.getContentPane().add(panel, BorderLayout.CENTER);
+    }
+
+    
+}
