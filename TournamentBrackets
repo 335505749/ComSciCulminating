@@ -60,6 +60,9 @@ public class TournamentBrackets {
                     Scanner sc = null;
                     try {
                         sc = new Scanner(file);
+                        // Consume the first line of labels and start from the 2nd line
+                        sc.nextLine();
+                        
                         // Check if there is another line of input
                         while (sc.hasNextLine()) {
                             String str = sc.nextLine();
