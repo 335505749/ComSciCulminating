@@ -69,16 +69,15 @@ public class TournamentBrackets {
                             // parse each line using delimiter
                             Scanner lineScanner = new Scanner(str);
                             lineScanner.useDelimiter(",");
-                            while (lineScanner.hasNext()) {
-                                String name = lineScanner.next();
-                                String school = lineScanner.next();
-                                String winRate = lineScanner.next();
-                                // Set names into a button
-                                JButton button = new JButton(name);
-                                panel.add(button);
-                                frame.getContentPane().add(panel, BorderLayout.CENTER);
-                            }
-                            lineScanner.close();
+                            
+                            String name = lineScanner.next();
+                            String school = lineScanner.next();
+                            String winRate = lineScanner.next();
+                            // Set names into a button
+                            JButton button = new JButton(name);
+                            panel.add(button);
+                            frame.getContentPane().add(panel, BorderLayout.CENTER);
+                              
                         }
                     } catch (IOException exp) {
                         // TODO Auto-generated catch block
@@ -87,6 +86,7 @@ public class TournamentBrackets {
                         if (sc != null)
                             sc.close();
                     }
+                    lineScanner.close();
 
                 } else {
                     label.setText("Open command canceled");
