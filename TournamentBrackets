@@ -32,13 +32,18 @@ public class TournamentBrackets {
     private static void createWindow() {
         JFrame frame = new JFrame("Choosing File");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Add new box layout on the frame to align names 
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         createUI(frame);
-        // set the window size
+        // set the Window size
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
+    // Assign variables to be used in more than one method 
+    // Array list - array that changes in size depending on the number of names (from while loop)
 
     static List<String> nameArr = new ArrayList<String>();
     static int lineNum = 0;
@@ -46,16 +51,21 @@ public class TournamentBrackets {
     private static void createUI(final JFrame frame) {
         JPanel panel = new JPanel();
 
-        // set a button to start
+        // Set a button to start
         JButton button = new JButton("Click Me To Choose!");
         final JLabel label = new JLabel();
 
         panel.add(button);
         panel.add(label);
+
+        // Display buttons and labels on left side of the border layout 
         frame.getContentPane().add(panel, BorderLayout.WEST);
 
+        // Makes button actionable 
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                // Chose file to be read 
                 JFileChooser fileChooser = new JFileChooser();
                 int option = fileChooser.showOpenDialog(frame);
                 if (option == JFileChooser.APPROVE_OPTION) {
@@ -63,6 +73,7 @@ public class TournamentBrackets {
                     File file = fileChooser.getSelectedFile();
                     label.setText("File Selected: " + file.getName());
 
+                    // Create scanner to read the whole file 
                     Scanner sc = null;
                     try {
                         sc = new Scanner(file);
@@ -72,21 +83,38 @@ public class TournamentBrackets {
                         while (sc.hasNextLine()) {
                             lineNum++;
                             String str = sc.nextLine();
-                            // parse each line using delimiter
+
+                            // Create new scanner to read each line by delimeter 
                             Scanner lineScanner = new Scanner(str);
+                            // Parse each line using delimiter
+
                             lineScanner.useDelimiter(",");
                             String name = lineScanner.next();
                             String school = lineScanner.next();
                             String winRate = lineScanner.next();
+
+                            // Adds names into the array list by the while loop
                             nameArr.add(name);
+
+                            // Choose file and labels should not be seen when names are displayed 
 
                             button.setVisible(false);
                             label.setVisible(false);
+
+                            // Makes names into buttons 
                             JButton nameButtons = new JButton(name); 
                             panel.add(nameButtons);
+
+                            // Adds buttons into panel aligned on the left side 
                             panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+                            // Lays out components as expected if the layout is managed correctly
                             panel.setPreferredSize(new Dimension(200, 900));
+
+                            // Maximum size of the column of names 
                             panel.setMaximumSize(new Dimension(160, 1200));  
+
+                            // Adds panel only the frame 
                             frame.getContentPane().add(panel);
                             frame.setSize(800, 600);
                             frame.setVisible(true);
@@ -97,12 +125,16 @@ public class TournamentBrackets {
                         exp.printStackTrace();
                     } 
                     finally {
-                        if (sc != null)
+                        if (sc != null) 
                             sc.close();
+                        
                     }
+                    // Returns all elements from beginning of array list in order 
                     String[] namesArr = nameArr.toArray(new String[0]);
-                    for (String s : namesArr) {
-                        System.out.println(s);
+
+                    // .size() find the size of the array list 
+                    for (int i = 0; i < nameArr.size(); i++) {
+                        System.out.println(namesArr[i]);
                     }
                     
 
