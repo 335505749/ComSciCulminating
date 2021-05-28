@@ -6,20 +6,22 @@
  */
  
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.LayoutManager;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 public class TournamentBrackets {
     public static void main(String[] args) {
@@ -30,6 +32,7 @@ public class TournamentBrackets {
     private static void createWindow() {
         JFrame frame = new JFrame("Choosing File");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         createUI(frame);
         // set the window size
         frame.setSize(800, 600);
@@ -37,15 +40,19 @@ public class TournamentBrackets {
         frame.setVisible(true);
     }
 
+    static List<String> temps = new ArrayList<String>();
+    static int lineNum = 0;
+
     private static void createUI(final JFrame frame) {
         JPanel panel = new JPanel();
-        LayoutManager layout = new FlowLayout();
-        panel.setLayout(layout);
 
         // set a button to start
         JButton button = new JButton("Click Me To Choose!");
         final JLabel label = new JLabel();
 
+        panel.add(button);
+        panel.add(label);
+        frame.getContentPane().add(panel, BorderLayout.WEST);
 
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -56,48 +63,54 @@ public class TournamentBrackets {
                     File file = fileChooser.getSelectedFile();
                     label.setText("File Selected: " + file.getName());
 
-                    // Read the file and split to display
                     Scanner sc = null;
                     try {
                         sc = new Scanner(file);
                         // Consume the first line of labels and start from the 2nd line
                         sc.nextLine();
-                        
                         // Check if there is another line of input
                         while (sc.hasNextLine()) {
+                            lineNum++;
                             String str = sc.nextLine();
                             // parse each line using delimiter
                             Scanner lineScanner = new Scanner(str);
                             lineScanner.useDelimiter(",");
-                            
                             String name = lineScanner.next();
                             String school = lineScanner.next();
                             String winRate = lineScanner.next();
-                            // Set names into a button
-                            JButton button = new JButton(name);
-                            panel.add(button);
-                            frame.getContentPane().add(panel, BorderLayout.CENTER);
-                              
+                            temps.add(name);
+
+                            button.setVisible(false);
+                            label.setVisible(false);
+                            JButton nameButtons = new JButton(name); 
+                            panel.add(nameButtons);
+                            panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+                            panel.setPreferredSize(new Dimension(200, 900));
+                            panel.setMaximumSize(new Dimension(160, 1200));  
+                            frame.getContentPane().add(panel);
+                            frame.setSize(800, 600);
+                            frame.setVisible(true);
                         }
-                    } catch (IOException exp) {
+                    } 
+                    catch (IOException exp) {
                         // TODO Auto-generated catch block
                         exp.printStackTrace();
-                    } finally {
+                    } 
+                    finally {
                         if (sc != null)
                             sc.close();
                     }
-                    lineScanner.close();
+                    String[] tempsArray = temps.toArray(new String[0]);
+                    for (String s : tempsArray) {
+                        System.out.println(s);
+                    }
+                    
 
-                } else {
+                } 
+                else {
                     label.setText("Open command canceled");
                 }
             }
         });
-
-        panel.add(button);
-        panel.add(label);
-        frame.getContentPane().add(panel, BorderLayout.CENTER);
-    }
-
-    
+    }   
 }
