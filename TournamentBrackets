@@ -40,7 +40,7 @@ public class TournamentBrackets {
         frame.setVisible(true);
     }
 
-    static List<String> temps = new ArrayList<String>();
+    static List<String> nameArr = new ArrayList<String>();
     static int lineNum = 0;
 
     private static void createUI(final JFrame frame) {
@@ -78,7 +78,7 @@ public class TournamentBrackets {
                             String name = lineScanner.next();
                             String school = lineScanner.next();
                             String winRate = lineScanner.next();
-                            temps.add(name);
+                            nameArr.add(name);
 
                             button.setVisible(false);
                             label.setVisible(false);
@@ -100,8 +100,8 @@ public class TournamentBrackets {
                         if (sc != null)
                             sc.close();
                     }
-                    String[] tempsArray = temps.toArray(new String[0]);
-                    for (String s : tempsArray) {
+                    String[] namesArr = nameArr.toArray(new String[0]);
+                    for (String s : namesArr) {
                         System.out.println(s);
                     }
                     
