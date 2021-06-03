@@ -28,6 +28,12 @@ public class GUITournament {
         JTextField tfText8;
         JTextField tfText9;
         JLabel lbLabel0;
+        
+            //Panel
+        pnPanel0 = new JPanel();
+        GridBagLayout gbPanel0 = new GridBagLayout();
+        GridBagConstraints gbcPanel0 = new GridBagConstraints();
+        pnPanel0.setLayout( gbPanel0 );
 
         pnPanel0 = new JPanel();
         GridBagLayout gbPanel0 = new GridBagLayout();
