@@ -1,0 +1,211 @@
+/* Nicole Padoun
+* Simple GUI: editable tournament brackets for a four team tournament
+*/
+
+//Necessary imports
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import java.awt.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
+
+
+
+public class GUITournament {
+    public static void main(String[] args) {
+    
+        //simple variable initialization
+        JPanel pnPanel0;
+        JTextField tfText2;
+        JTextField tfText3;
+        JTextField tfText5;
+        JTextField tfText6;
+        JTextField tfText7;
+        JTextField tfText8;
+        JTextField tfText9;
+        JLabel lbLabel0;
+
+        pnPanel0 = new JPanel();
+        GridBagLayout gbPanel0 = new GridBagLayout();
+        GridBagConstraints gbcPanel0 = new GridBagConstraints();
+        pnPanel0.setLayout( gbPanel0 );
+
+           //all text fields (editable text boxes for user)
+        tfText2 = new JTextField( );
+        gbcPanel0.gridx = 1;
+        gbcPanel0.gridy = 2;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 0;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( tfText2, gbcPanel0 );
+        pnPanel0.add( tfText2 );
+
+        tfText3 = new JTextField( );
+        gbcPanel0.gridx = 1;
+        gbcPanel0.gridy = 4;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 0;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( tfText3, gbcPanel0 );
+        pnPanel0.add( tfText3 );
+
+        tfText5 = new JTextField( );
+        gbcPanel0.gridx = 1;
+        gbcPanel0.gridy = 8;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 0;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( tfText5, gbcPanel0 );
+        pnPanel0.add( tfText5 );
+
+        tfText6 = new JTextField( );
+        gbcPanel0.gridx = 1;
+        gbcPanel0.gridy = 6;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 0;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( tfText6, gbcPanel0 );
+        pnPanel0.add( tfText6 );
+
+        tfText7 = new JTextField( );
+        gbcPanel0.gridx = 3;
+        gbcPanel0.gridy = 4;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 0;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( tfText7, gbcPanel0 );
+        pnPanel0.add( tfText7 );
+
+        tfText8 = new JTextField( );
+        gbcPanel0.gridx = 3;
+        gbcPanel0.gridy = 6;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 0;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( tfText8, gbcPanel0 );
+        pnPanel0.add( tfText8 );
+
+        tfText9 = new JTextField( );
+        gbcPanel0.gridx = 5;
+        gbcPanel0.gridy = 5;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 0;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( tfText9, gbcPanel0 );
+        pnPanel0.add( tfText9 );
+        
+            //Label for first team
+        lbLabel0 = new JLabel( "Team1"  );
+        gbcPanel0.gridx = 1;
+        gbcPanel0.gridy = 1;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
+        pnPanel0.add( lbLabel0 );
+        
+            //Label for second team
+        lbLabel0 = new JLabel( "Team2"  );
+        gbcPanel0.gridx = 1;
+        gbcPanel0.gridy = 3;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
+        pnPanel0.add( lbLabel0 );
+
+            //Label for third team
+        lbLabel0 = new JLabel( "Team3"  );
+        gbcPanel0.gridx = 1;
+        gbcPanel0.gridy = 5;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
+
+            //Label for fourth team
+        lbLabel0 = new JLabel( "Team4"  );
+        gbcPanel0.gridx = 1;
+        gbcPanel0.gridy = 7;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
+
+            //Label for round winner
+        lbLabel0 = new JLabel( "Round1 (win)"  );
+        gbcPanel0.gridx = 3;
+        gbcPanel0.gridy = 3;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
+        pnPanel0.add( lbLabel0 );
+
+            //Label for second round winner
+        lbLabel0 = new JLabel( "Round2 (win)"  );
+        gbcPanel0.gridx = 3;
+        gbcPanel0.gridy = 5;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
+        pnPanel0.add( lbLabel0 );
+
+            //Label for final winner
+        lbLabel0 = new JLabel( "Final Winner"  );
+        gbcPanel0.gridx = 5;
+        gbcPanel0.gridy = 4;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
+        pnPanel0.add( lbLabel0 );
+    }
+}
