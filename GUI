@@ -1,3 +1,8 @@
+/* Nicole Padoun
+* Simple GUI: editable tournament brackets for a four team tournament
+*/
+
+//Necessary imports
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -12,7 +17,8 @@ import javax.swing.JToggleButton;
 
 public class GUITournament {
     public static void main(String[] args) {
-
+    
+        //simple variable initialization
         JPanel pnPanel0;
         JTextField tfText2;
         JTextField tfText3;
@@ -28,6 +34,7 @@ public class GUITournament {
         GridBagConstraints gbcPanel0 = new GridBagConstraints();
         pnPanel0.setLayout( gbPanel0 );
 
+           //all text fields (editable text boxes for user)
         tfText2 = new JTextField( );
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 2;
@@ -111,7 +118,8 @@ public class GUITournament {
         gbcPanel0.anchor = GridBagConstraints.NORTH;
         gbPanel0.setConstraints( tfText9, gbcPanel0 );
         pnPanel0.add( tfText9 );
-
+        
+            //Label for first team
         lbLabel0 = new JLabel( "Team1"  );
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 1;
@@ -123,7 +131,8 @@ public class GUITournament {
         gbcPanel0.anchor = GridBagConstraints.NORTH;
         gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
         pnPanel0.add( lbLabel0 );
-
+        
+            //Label for second team
         lbLabel0 = new JLabel( "Team2"  );
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 3;
@@ -136,6 +145,7 @@ public class GUITournament {
         gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
         pnPanel0.add( lbLabel0 );
 
+            //Label for third team
         lbLabel0 = new JLabel( "Team3"  );
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 5;
@@ -147,6 +157,7 @@ public class GUITournament {
         gbcPanel0.anchor = GridBagConstraints.NORTH;
         gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
 
+            //Label for fourth team
         lbLabel0 = new JLabel( "Team4"  );
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 7;
@@ -158,6 +169,7 @@ public class GUITournament {
         gbcPanel0.anchor = GridBagConstraints.NORTH;
         gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
 
+            //Label for round winner
         lbLabel0 = new JLabel( "Round1 (win)"  );
         gbcPanel0.gridx = 3;
         gbcPanel0.gridy = 3;
@@ -170,6 +182,7 @@ public class GUITournament {
         gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
         pnPanel0.add( lbLabel0 );
 
+            //Label for second round winner
         lbLabel0 = new JLabel( "Round2 (win)"  );
         gbcPanel0.gridx = 3;
         gbcPanel0.gridy = 5;
@@ -182,6 +195,7 @@ public class GUITournament {
         gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
         pnPanel0.add( lbLabel0 );
 
+            //Label for final winner
         lbLabel0 = new JLabel( "Final Winner"  );
         gbcPanel0.gridx = 5;
         gbcPanel0.gridy = 4;
