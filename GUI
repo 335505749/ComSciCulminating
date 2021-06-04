@@ -4,51 +4,84 @@
  * Description: GUI on Tournament Brackets
  */
 
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
 public class GUI extends JFrame implements ActionListener{
     static JFrame frame;
-    public static void main (String[] args) {
+    static int lineNum = 0; 
+    static List<String> nameArr = new ArrayList<String>();
+    static JPanel pnPanel0;
+    static GridBagLayout gbPanel0;
+    static GridBagConstraints gbcPanel0;
+
+    public static void main(String[] args) throws FileNotFoundException {
+        chooseFile();
         frame = new JFrame("Tournament Brackets Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         frame.setVisible(true);
-
-        // simple variable initialization
-        JPanel pnPanel0;
-        JTextField tfText2;
-        JTextField tfText3;
-        JTextField tfText5;
-        JTextField tfText6;
-        JTextField tfText7;
-        JTextField tfText8;
-        JTextField tfText9;
-        JLabel lbLabel0;
-        JLabel lbLabel;
-
+        frame.setResizable(false);
+        
         pnPanel0 = new JPanel();
-        GridBagLayout gbPanel0 = new GridBagLayout();
-        GridBagConstraints gbcPanel0 = new GridBagConstraints();
+        pnPanel0.setPreferredSize(new Dimension(1000, 600));
+        gbPanel0 = new GridBagLayout();
+        
+        gbcPanel0 = new GridBagConstraints();
         pnPanel0.setLayout(gbPanel0);
 
-        JButton save = new JButton("Save - Capture the current window");
+        buttonFunction();
+        labelFunction();
+    }
+        
+
+    public static void chooseFile() throws FileNotFoundException {
+
+        JFileChooser fileChooser = new JFileChooser();
+                int option = fileChooser.showOpenDialog(frame);
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    // Get the file
+                    File file = fileChooser.getSelectedFile();
+                    Scanner sc = null;
+        
+                    sc = new Scanner(file);
+                    // Consume the first line of labels and start from the 2nd line
+                    sc.nextLine();
+                    // Check if there is another line of input
+                    while (sc.hasNextLine()) {
+                        lineNum++;
+                        String str = sc.nextLine();
+
+                        // Create new scanner to read each line by delimeter 
+                        Scanner lineScanner = new Scanner(str);
+                        // Parse each line using delimiter
+
+                        lineScanner.useDelimiter(",");
+                        String name = lineScanner.next();
+                        String school = lineScanner.next();
+                        String winRate = lineScanner.next();
+                        
+                        nameArr.add(name);
+                        System.out.println(name);
+                
+                    }
+                }
+    }
+
+    public static void buttonFunction() {
+
+        JButton save = new JButton("CLICK TO SAVE AS A PNG");
         gbcPanel0.gridx = 5;
         gbcPanel0.gridy = 6;
         gbcPanel0.gridwidth = 1;
@@ -65,9 +98,9 @@ public class GUI extends JFrame implements ActionListener{
                 makePanelImage(frame);
             }
         });
-      
+
         // Label for instruction
-        lbLabel = new JLabel("          Expand the window and type in the names.");
+        JLabel intro = new JLabel("          Expand the window and type in the names.");
         gbcPanel0.gridx = 5;
         gbcPanel0.gridy = 0;
         gbcPanel0.gridwidth = 1;
@@ -76,11 +109,12 @@ public class GUI extends JFrame implements ActionListener{
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints(lbLabel, gbcPanel0);
-        pnPanel0.add(lbLabel);
+        gbPanel0.setConstraints(intro, gbcPanel0);
+        pnPanel0.add(intro);
 
         // all text fields (editable text boxes for user)
-        tfText2 = new JTextField();
+
+        JButton button1 = new JButton(nameArr.get(0));
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 0;
         gbcPanel0.gridwidth = 1;
@@ -89,10 +123,49 @@ public class GUI extends JFrame implements ActionListener{
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints(tfText2, gbcPanel0);
-        pnPanel0.add(tfText2);
+        gbPanel0.setConstraints(button1, gbcPanel0);
+        pnPanel0.add(button1);
+        button1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JButton button1a = new JButton(nameArr.get(0));
+                gbcPanel0.gridx = 3;
+                gbcPanel0.gridy = 1;
+                gbcPanel0.gridwidth = 1;
+                gbcPanel0.gridheight = 1;
+                gbcPanel0.fill = GridBagConstraints.BOTH;
+                gbcPanel0.weightx = 1;
+                gbcPanel0.weighty = 1;
+                gbcPanel0.anchor = GridBagConstraints.NORTH;
+                gbPanel0.setConstraints(button1a, gbcPanel0);
+                pnPanel0.add(button1a);
+                frame.getContentPane().add(pnPanel0);
+                frame.pack();
+                frame.setVisible(true);
 
-        tfText3 = new JTextField();
+                button1a.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        JButton button1b = new JButton(nameArr.get(0));
+                        gbcPanel0.gridx = 5;
+                        gbcPanel0.gridy = 3;
+                        gbcPanel0.gridwidth = 1;
+                        gbcPanel0.gridheight = 1;
+                        gbcPanel0.fill = GridBagConstraints.BOTH;
+                        gbcPanel0.weightx = 1;
+                        gbcPanel0.weighty = 1;
+                        gbcPanel0.anchor = GridBagConstraints.NORTH;
+                        gbPanel0.setConstraints(button1b, gbcPanel0);
+                        pnPanel0.add(button1b);
+                        frame.getContentPane().add(pnPanel0);
+                        frame.pack();
+                        frame.setVisible(true);
+                    }
+
+                });
+
+            }
+        });
+
+        JButton button2 = new JButton(nameArr.get(1));
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 2;
         gbcPanel0.gridwidth = 1;
@@ -101,10 +174,50 @@ public class GUI extends JFrame implements ActionListener{
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints(tfText3, gbcPanel0);
-        pnPanel0.add(tfText3);
+        gbPanel0.setConstraints(button2, gbcPanel0);
+        pnPanel0.add(button2);
 
-        tfText5 = new JTextField();
+        button2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JButton button2a = new JButton(nameArr.get(1));
+                gbcPanel0.gridx = 3;
+                gbcPanel0.gridy = 1;
+                gbcPanel0.gridwidth = 1;
+                gbcPanel0.gridheight = 1;
+                gbcPanel0.fill = GridBagConstraints.BOTH;
+                gbcPanel0.weightx = 1;
+                gbcPanel0.weighty = 1;
+                gbcPanel0.anchor = GridBagConstraints.NORTH;
+                gbPanel0.setConstraints(button2a, gbcPanel0);
+                pnPanel0.add(button2a);
+                frame.getContentPane().add(pnPanel0);
+                frame.pack();
+                frame.setVisible(true);
+
+                button2a.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        JButton button2b = new JButton(nameArr.get(1));
+                        gbcPanel0.gridx = 5;
+                        gbcPanel0.gridy = 3;
+                        gbcPanel0.gridwidth = 1;
+                        gbcPanel0.gridheight = 1;
+                        gbcPanel0.fill = GridBagConstraints.BOTH;
+                        gbcPanel0.weightx = 1;
+                        gbcPanel0.weighty = 1;
+                        gbcPanel0.anchor = GridBagConstraints.NORTH;
+                        gbPanel0.setConstraints(button2b, gbcPanel0);
+                        pnPanel0.add(button2b);
+                        frame.getContentPane().add(pnPanel0);
+                        frame.pack();
+                        frame.setVisible(true);
+                    }
+
+                });
+
+            }
+        });
+
+        JButton button3 = new JButton(nameArr.get(2));
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 4;
         gbcPanel0.gridwidth = 1;
@@ -113,10 +226,49 @@ public class GUI extends JFrame implements ActionListener{
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints(tfText5, gbcPanel0);
-        pnPanel0.add(tfText5);
+        gbPanel0.setConstraints(button3, gbcPanel0);
+        pnPanel0.add(button3);
 
-        tfText6 = new JTextField();
+        button3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JButton button3a = new JButton(nameArr.get(2));
+                gbcPanel0.gridx = 3;
+                gbcPanel0.gridy = 5;
+                gbcPanel0.gridwidth = 1;
+                gbcPanel0.gridheight = 1;
+                gbcPanel0.fill = GridBagConstraints.BOTH;
+                gbcPanel0.weightx = 1;
+                gbcPanel0.weighty = 1;
+                gbcPanel0.anchor = GridBagConstraints.NORTH;
+                gbPanel0.setConstraints(button3a, gbcPanel0);
+                pnPanel0.add(button3a);
+                frame.getContentPane().add(pnPanel0);
+                frame.pack();
+                frame.setVisible(true);
+                button3a.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        JButton button3b = new JButton(nameArr.get(2));
+                        gbcPanel0.gridx = 5;
+                        gbcPanel0.gridy = 3;
+                        gbcPanel0.gridwidth = 1;
+                        gbcPanel0.gridheight = 1;
+                        gbcPanel0.fill = GridBagConstraints.BOTH;
+                        gbcPanel0.weightx = 1;
+                        gbcPanel0.weighty = 1;
+                        gbcPanel0.anchor = GridBagConstraints.NORTH;
+                        gbPanel0.setConstraints(button3b, gbcPanel0);
+                        pnPanel0.add(button3b);
+                        frame.getContentPane().add(pnPanel0);
+                        frame.pack();
+                        frame.setVisible(true);
+                    }
+
+                });
+
+            }
+        });
+
+        JButton button4 = new JButton(nameArr.get(3));
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 6;
         gbcPanel0.gridwidth = 1;
@@ -125,45 +277,52 @@ public class GUI extends JFrame implements ActionListener{
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints(tfText6, gbcPanel0);
-        pnPanel0.add(tfText6);
+        gbPanel0.setConstraints(button4, gbcPanel0);
+        pnPanel0.add(button4);
 
-        tfText7 = new JTextField();
-        gbcPanel0.gridx = 3;
-        gbcPanel0.gridy = 1;
-        gbcPanel0.gridwidth = 1;
-        gbcPanel0.gridheight = 1;
-        gbcPanel0.fill = GridBagConstraints.BOTH;
-        gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 1;
-        gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints(tfText7, gbcPanel0);
-        pnPanel0.add(tfText7);
+        button4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JButton button4a = new JButton(nameArr.get(3));
+                gbcPanel0.gridx = 3;
+                gbcPanel0.gridy = 5;
+                gbcPanel0.gridwidth = 1;
+                gbcPanel0.gridheight = 1;
+                gbcPanel0.fill = GridBagConstraints.BOTH;
+                gbcPanel0.weightx = 1;
+                gbcPanel0.weighty = 1;
+                gbcPanel0.anchor = GridBagConstraints.NORTH;
+                gbPanel0.setConstraints(button4a, gbcPanel0);
+                pnPanel0.add(button4a);
+                frame.getContentPane().add(pnPanel0);
+                frame.pack();
+                frame.setVisible(true);
+                button4a.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        JButton button4b = new JButton(nameArr.get(3));
+                        gbcPanel0.gridx = 5;
+                        gbcPanel0.gridy = 3;
+                        gbcPanel0.gridwidth = 1;
+                        gbcPanel0.gridheight = 1;
+                        gbcPanel0.fill = GridBagConstraints.BOTH;
+                        gbcPanel0.weightx = 1;
+                        gbcPanel0.weighty = 1;
+                        gbcPanel0.anchor = GridBagConstraints.NORTH;
+                        gbPanel0.setConstraints(button4b, gbcPanel0);
+                        pnPanel0.add(button4b);
+                        frame.getContentPane().add(pnPanel0);
+                        frame.pack();
+                        frame.setVisible(true);
+                    }
 
-        tfText8 = new JTextField();
-        gbcPanel0.gridx = 3;
-        gbcPanel0.gridy = 5;
-        gbcPanel0.gridwidth = 1;
-        gbcPanel0.gridheight = 1;
-        gbcPanel0.fill = GridBagConstraints.BOTH;
-        gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 1;
-        gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints(tfText8, gbcPanel0);
-        pnPanel0.add(tfText8);
+                });
 
-        tfText9 = new JTextField();
-        gbcPanel0.gridx = 5;
-        gbcPanel0.gridy = 3;
-        gbcPanel0.gridwidth = 1;
-        gbcPanel0.gridheight = 1;
-        gbcPanel0.fill = GridBagConstraints.BOTH;
-        gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 1;
-        gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints(tfText9, gbcPanel0);
-        pnPanel0.add(tfText9);
+            }
+        });
 
+    }
+
+    public static void labelFunction() {
+        JLabel lbLabel0;
         // Label for first and second team
         lbLabel0 = new JLabel("                      Team 1 & Team 2");
         gbcPanel0.gridx = 1;
@@ -245,5 +404,9 @@ public class GUI extends JFrame implements ActionListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }}
+    }
 
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        
+    }}
