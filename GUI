@@ -1,24 +1,37 @@
-/* Nicole Padoun
-* Simple GUI: editable tournament brackets for a four team tournament
-*/
+/* Date: June 3
+ * Name: Amy, Arpitha, John Michael, Nicole
+ * Teacher: Mr. Ho
+ * Description: GUI on Tournament Brackets
+ */
 
-//Necessary imports
+
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.*;
+import java.awt.event.*;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.*;
+import java.io.*;
+import javax.imageio.ImageIO;
 
+public class GUI extends JFrame implements ActionListener{
+    static JFrame frame;
+    public static void main (String[] args) {
+        frame = new JFrame("Tournament Brackets Editor");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        frame.setVisible(true);
 
-public class GUITournament {
-    public static void main(String[] args) {
-    
-        //simple variable initialization
+        // simple variable initialization
         JPanel pnPanel0;
         JTextField tfText2;
         JTextField tfText3;
@@ -28,99 +41,131 @@ public class GUITournament {
         JTextField tfText8;
         JTextField tfText9;
         JLabel lbLabel0;
+        JLabel lbLabel;
 
         pnPanel0 = new JPanel();
         GridBagLayout gbPanel0 = new GridBagLayout();
         GridBagConstraints gbcPanel0 = new GridBagConstraints();
-        pnPanel0.setLayout( gbPanel0 );
+        pnPanel0.setLayout(gbPanel0);
 
-           //all text fields (editable text boxes for user)
-        tfText2 = new JTextField( );
+        JButton save = new JButton("Save - Capture the current window");
+        gbcPanel0.gridx = 5;
+        gbcPanel0.gridy = 6;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints(save, gbcPanel0);
+        pnPanel0.add(save);
+
+        save.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                makePanelImage(frame);
+            }
+        });
+      
+        // Label for instruction
+        lbLabel = new JLabel("          Expand the window and type in the names.");
+        gbcPanel0.gridx = 5;
+        gbcPanel0.gridy = 0;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints(lbLabel, gbcPanel0);
+        pnPanel0.add(lbLabel);
+
+        // all text fields (editable text boxes for user)
+        tfText2 = new JTextField();
+        gbcPanel0.gridx = 1;
+        gbcPanel0.gridy = 0;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints(tfText2, gbcPanel0);
+        pnPanel0.add(tfText2);
+
+        tfText3 = new JTextField();
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 2;
         gbcPanel0.gridwidth = 1;
         gbcPanel0.gridheight = 1;
         gbcPanel0.fill = GridBagConstraints.BOTH;
         gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 0;
+        gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( tfText2, gbcPanel0 );
-        pnPanel0.add( tfText2 );
+        gbPanel0.setConstraints(tfText3, gbcPanel0);
+        pnPanel0.add(tfText3);
 
-        tfText3 = new JTextField( );
+        tfText5 = new JTextField();
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 4;
         gbcPanel0.gridwidth = 1;
         gbcPanel0.gridheight = 1;
         gbcPanel0.fill = GridBagConstraints.BOTH;
         gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 0;
+        gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( tfText3, gbcPanel0 );
-        pnPanel0.add( tfText3 );
+        gbPanel0.setConstraints(tfText5, gbcPanel0);
+        pnPanel0.add(tfText5);
 
-        tfText5 = new JTextField( );
-        gbcPanel0.gridx = 1;
-        gbcPanel0.gridy = 8;
-        gbcPanel0.gridwidth = 1;
-        gbcPanel0.gridheight = 1;
-        gbcPanel0.fill = GridBagConstraints.BOTH;
-        gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 0;
-        gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( tfText5, gbcPanel0 );
-        pnPanel0.add( tfText5 );
-
-        tfText6 = new JTextField( );
+        tfText6 = new JTextField();
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 6;
         gbcPanel0.gridwidth = 1;
         gbcPanel0.gridheight = 1;
         gbcPanel0.fill = GridBagConstraints.BOTH;
         gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 0;
+        gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( tfText6, gbcPanel0 );
-        pnPanel0.add( tfText6 );
+        gbPanel0.setConstraints(tfText6, gbcPanel0);
+        pnPanel0.add(tfText6);
 
-        tfText7 = new JTextField( );
+        tfText7 = new JTextField();
         gbcPanel0.gridx = 3;
-        gbcPanel0.gridy = 4;
+        gbcPanel0.gridy = 1;
         gbcPanel0.gridwidth = 1;
         gbcPanel0.gridheight = 1;
         gbcPanel0.fill = GridBagConstraints.BOTH;
         gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 0;
+        gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( tfText7, gbcPanel0 );
-        pnPanel0.add( tfText7 );
+        gbPanel0.setConstraints(tfText7, gbcPanel0);
+        pnPanel0.add(tfText7);
 
-        tfText8 = new JTextField( );
+        tfText8 = new JTextField();
         gbcPanel0.gridx = 3;
-        gbcPanel0.gridy = 6;
-        gbcPanel0.gridwidth = 1;
-        gbcPanel0.gridheight = 1;
-        gbcPanel0.fill = GridBagConstraints.BOTH;
-        gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 0;
-        gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( tfText8, gbcPanel0 );
-        pnPanel0.add( tfText8 );
-
-        tfText9 = new JTextField( );
-        gbcPanel0.gridx = 5;
         gbcPanel0.gridy = 5;
         gbcPanel0.gridwidth = 1;
         gbcPanel0.gridheight = 1;
         gbcPanel0.fill = GridBagConstraints.BOTH;
         gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 0;
+        gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( tfText9, gbcPanel0 );
-        pnPanel0.add( tfText9 );
-        
-            //Label for first team
-        lbLabel0 = new JLabel( "Team1"  );
+        gbPanel0.setConstraints(tfText8, gbcPanel0);
+        pnPanel0.add(tfText8);
+
+        tfText9 = new JTextField();
+        gbcPanel0.gridx = 5;
+        gbcPanel0.gridy = 3;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints(tfText9, gbcPanel0);
+        pnPanel0.add(tfText9);
+
+        // Label for first and second team
+        lbLabel0 = new JLabel("                      Team 1 & Team 2");
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 1;
         gbcPanel0.gridwidth = 1;
@@ -129,24 +174,11 @@ public class GUITournament {
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
-        pnPanel0.add( lbLabel0 );
-        
-            //Label for second team
-        lbLabel0 = new JLabel( "Team2"  );
-        gbcPanel0.gridx = 1;
-        gbcPanel0.gridy = 3;
-        gbcPanel0.gridwidth = 1;
-        gbcPanel0.gridheight = 1;
-        gbcPanel0.fill = GridBagConstraints.BOTH;
-        gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 1;
-        gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
-        pnPanel0.add( lbLabel0 );
+        gbPanel0.setConstraints(lbLabel0, gbcPanel0);
+        pnPanel0.add(lbLabel0);
 
-            //Label for third team
-        lbLabel0 = new JLabel( "Team3"  );
+        // Label for third and fourth team
+        lbLabel0 = new JLabel("                      Team 3 & Team 4");
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 5;
         gbcPanel0.gridwidth = 1;
@@ -155,49 +187,25 @@ public class GUITournament {
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
+        gbPanel0.setConstraints(lbLabel0, gbcPanel0);
+        pnPanel0.add(lbLabel0);
 
-            //Label for fourth team
-        lbLabel0 = new JLabel( "Team4"  );
-        gbcPanel0.gridx = 1;
-        gbcPanel0.gridy = 7;
-        gbcPanel0.gridwidth = 1;
-        gbcPanel0.gridheight = 1;
-        gbcPanel0.fill = GridBagConstraints.BOTH;
-        gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 1;
-        gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
-
-            //Label for round winner
-        lbLabel0 = new JLabel( "Round1 (win)"  );
+        // Label for round winner
+        lbLabel0 = new JLabel("                      Round1 (win)");
         gbcPanel0.gridx = 3;
-        gbcPanel0.gridy = 3;
+        gbcPanel0.gridy = 0;
         gbcPanel0.gridwidth = 1;
         gbcPanel0.gridheight = 1;
         gbcPanel0.fill = GridBagConstraints.BOTH;
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
-        pnPanel0.add( lbLabel0 );
+        gbPanel0.setConstraints(lbLabel0, gbcPanel0);
+        pnPanel0.add(lbLabel0);
 
-            //Label for second round winner
-        lbLabel0 = new JLabel( "Round2 (win)"  );
+        // Label for second round winner
+        lbLabel0 = new JLabel("                      Round2 (win)");
         gbcPanel0.gridx = 3;
-        gbcPanel0.gridy = 5;
-        gbcPanel0.gridwidth = 1;
-        gbcPanel0.gridheight = 1;
-        gbcPanel0.fill = GridBagConstraints.BOTH;
-        gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 1;
-        gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
-        pnPanel0.add( lbLabel0 );
-
-            //Label for final winner
-        lbLabel0 = new JLabel( "Final Winner"  );
-        gbcPanel0.gridx = 5;
         gbcPanel0.gridy = 4;
         gbcPanel0.gridwidth = 1;
         gbcPanel0.gridheight = 1;
@@ -205,7 +213,37 @@ public class GUITournament {
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
         gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( lbLabel0, gbcPanel0 );
-        pnPanel0.add( lbLabel0 );
+        gbPanel0.setConstraints(lbLabel0, gbcPanel0);
+        pnPanel0.add(lbLabel0);
+
+        // Label for final winner
+        lbLabel0 = new JLabel("                      Final Winner");
+        gbcPanel0.gridx = 5;
+        gbcPanel0.gridy = 2;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints(lbLabel0, gbcPanel0);
+        pnPanel0.add(lbLabel0);
+
+        frame.getContentPane().add(pnPanel0);
+        frame.pack();
+        frame.setVisible(true);
     }
-}
+
+    private static void makePanelImage(JFrame frame) {
+        Dimension size = frame.getSize();
+        BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = image.createGraphics();
+        frame.paint(g2);
+        try {
+            ImageIO.write(image, "png", new File("TournamentBrackets.png"));
+            System.out.println("Image saved as 'TournamentBrackets.png'.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }}
+
