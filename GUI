@@ -4,24 +4,27 @@
  * Description: GUI on Tournament Brackets
  */
 
+
 import java.util.Scanner;
+
+// Packages used for Array List 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
+// Packages used for GUI
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.*;
+
+// Packages used for capture 
 import java.io.*;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
-public class GUI extends JFrame implements ActionListener{
-    static JFrame frame;
-    static int lineNum = 0; 
+public class GUI extends JFrame implements ActionListener {
+
+    // Set static variables for all methods and the full frame 
+    static JFrame frame; 
     static List<String> nameArr = new ArrayList<String>();
     static JPanel pnPanel0;
     static GridBagLayout gbPanel0;
@@ -29,15 +32,18 @@ public class GUI extends JFrame implements ActionListener{
 
     public static void main(String[] args) throws FileNotFoundException {
         chooseFile();
+        // Create and name a new frame 
         frame = new JFrame("Tournament Brackets Editor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setResizable(false);
         
+        // Create and set size of panel
         pnPanel0 = new JPanel();
         pnPanel0.setPreferredSize(new Dimension(1000, 600));
+
+        // Set GridBagLayout to panel 
         gbPanel0 = new GridBagLayout();
-        
         gbcPanel0 = new GridBagConstraints();
         pnPanel0.setLayout(gbPanel0);
 
@@ -45,62 +51,101 @@ public class GUI extends JFrame implements ActionListener{
         labelFunction();
     }
         
+    /* 
+     * Name: choseFile 
+     * Description: Uses GUI JFileChooser to choose file,
+     *              Adds names from file into an array list 
+     * 
+     */
 
     public static void chooseFile() throws FileNotFoundException {
 
-        JFileChooser fileChooser = new JFileChooser();
-                int option = fileChooser.showOpenDialog(frame);
-                if (option == JFileChooser.APPROVE_OPTION) {
-                    // Get the file
-                    File file = fileChooser.getSelectedFile();
-                    Scanner sc = null;
         
-                    sc = new Scanner(file);
-                    // Consume the first line of labels and start from the 2nd line
-                    sc.nextLine();
-                    // Check if there is another line of input
-                    while (sc.hasNextLine()) {
-                        lineNum++;
-                        String str = sc.nextLine();
+        JFileChooser fileChooser = new JFileChooser();
 
-                        // Create new scanner to read each line by delimeter 
-                        Scanner lineScanner = new Scanner(str);
-                        // Parse each line using delimiter
+        // Opens new window that allows file selection 
+        int option = fileChooser.showOpenDialog(frame);
+        if (option == JFileChooser.APPROVE_OPTION) {
 
-                        lineScanner.useDelimiter(",");
-                        String name = lineScanner.next();
-                        String school = lineScanner.next();
-                        String winRate = lineScanner.next();
-                        
-                        nameArr.add(name);
-                        System.out.println(name);
+            // Get the selected file
+            File file = fileChooser.getSelectedFile();
+
+            // Create Scanner to read whole file 
+            Scanner sc = null;
+            sc = new Scanner(file);
+
+            // Consume the first line of labels and start from the 2nd line
+            sc.nextLine();
+            
+            // Check if there is another line of input
+            while (sc.hasNextLine()) {
+                String str = sc.nextLine();
+
+                // Create new scanner to read each line by delimeter 
+                Scanner lineScanner = new Scanner(str);
+
+                // Parse each line using delimiter
+                lineScanner.useDelimiter(",");
+
+                // Only the String name is used in the program 
+                String name = lineScanner.next();
+                String school = lineScanner.next();
+                String winRate = lineScanner.next();
                 
-                    }
-                }
+                // Adds name to array list 
+                nameArr.add(name);
+            }
+        }
     }
 
-    public static void buttonFunction() {
+    /* 
+     * Name: buttonFunction 
+     * Description: Creates new button to capture the frame  
+     *              Adds actionListeners for every button made and places them in a panel
+     *              Set GridBagLayout for each button to form tournament bracket 
+     *              Make buttons visible on full frame 
+     * 
+     */
 
+    public static void buttonFunction() {
         JButton save = new JButton("CLICK TO SAVE AS A PNG");
+
+        // Specify rows and column from the upper left of the layout 
         gbcPanel0.gridx = 5;
         gbcPanel0.gridy = 6;
+
+        // Specify number of rows and columns in the layout 
         gbcPanel0.gridwidth = 1;
         gbcPanel0.gridheight = 1;
+
+        // Makes the layout fill the display area completely 
         gbcPanel0.fill = GridBagConstraints.BOTH;
+
+        // Specify distribution of space among rows and columns 
         gbcPanel0.weightx = 1;
         gbcPanel0.weighty = 1;
+
+        // Specify where to position layout 
         gbcPanel0.anchor = GridBagConstraints.NORTH;
+
+        // Panel resizes as the windows resize 
         gbPanel0.setConstraints(save, gbcPanel0);
+
+        // Add "save" button to panel 
         pnPanel0.add(save);
 
+        // Makes save button actionable 
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // Calls capture method 
                 makePanelImage(frame);
             }
         });
 
         // Label for instruction
-        JLabel intro = new JLabel("          Expand the window and type in the names.");
+        JLabel intro = new JLabel("          Expand the window and click the name of the winner for each game.");
+
+        // Repeats specifying constraints depending on position (top right of frame)
         gbcPanel0.gridx = 5;
         gbcPanel0.gridy = 0;
         gbcPanel0.gridwidth = 1;
@@ -112,7 +157,13 @@ public class GUI extends JFrame implements ActionListener{
         gbPanel0.setConstraints(intro, gbcPanel0);
         pnPanel0.add(intro);
 
-        // all text fields (editable text boxes for user)
+        /* 
+         * Repeats specifying constraints for every button in first column (gridy value +=2)
+         * button1, button2, button3, button4 --> buttons for first column
+         * button1a, button2a, button3a, button4a --> buttons for second column
+         * button1b, button2b, button3b, button4b --> buttons for third (last) column
+         * 
+         */
 
         JButton button1 = new JButton(nameArr.get(0));
         gbcPanel0.gridx = 1;
@@ -125,9 +176,16 @@ public class GUI extends JFrame implements ActionListener{
         gbcPanel0.anchor = GridBagConstraints.NORTH;
         gbPanel0.setConstraints(button1, gbcPanel0);
         pnPanel0.add(button1);
+
+        // Makes every button in the first coloumn go to second column 
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                // Create new button with the same name index to show they moved onto the second column
                 JButton button1a = new JButton(nameArr.get(0));
+
+                // Increase gridx value to move down a column
+                // Same constraints for every button (they are the same size)
                 gbcPanel0.gridx = 3;
                 gbcPanel0.gridy = 1;
                 gbcPanel0.gridwidth = 1;
@@ -137,10 +195,17 @@ public class GUI extends JFrame implements ActionListener{
                 gbcPanel0.weighty = 1;
                 gbcPanel0.anchor = GridBagConstraints.NORTH;
                 gbPanel0.setConstraints(button1a, gbcPanel0);
+
+                // Adds button to panel and frame 
                 pnPanel0.add(button1a);
                 frame.getContentPane().add(pnPanel0);
+
+                // .pack() sizes the frame so all the contents inside are the preferred size 
                 frame.pack();
                 frame.setVisible(true);
+
+                // Makes every button in the second column go to the last column (final winner)
+                // Changes both the gridx and y value to move button to the center
 
                 button1a.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -164,6 +229,8 @@ public class GUI extends JFrame implements ActionListener{
 
             }
         });
+
+        // Repeat for all buttons with different gridy values
 
         JButton button2 = new JButton(nameArr.get(1));
         gbcPanel0.gridx = 1;
@@ -320,11 +387,21 @@ public class GUI extends JFrame implements ActionListener{
         });
 
     }
+    
+     /* 
+     * Name: labelFunction 
+     * Description: Creates new labels between every set of opponents  
+     *              Set GridBagLayout for each label  
+     * 
+     */
 
     public static void labelFunction() {
         JLabel lbLabel0;
-        // Label for first and second team
-        lbLabel0 = new JLabel("                      Team 1 & Team 2");
+        // Label for first and second team positioned between the 2 sets of opponents
+        // Space in label name required to center it 
+        // Uses same type of constraints as the buttons 
+
+        lbLabel0 = new JLabel("                      Player 1 & Player 2");
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 1;
         gbcPanel0.gridwidth = 1;
@@ -337,7 +414,7 @@ public class GUI extends JFrame implements ActionListener{
         pnPanel0.add(lbLabel0);
 
         // Label for third and fourth team
-        lbLabel0 = new JLabel("                      Team 3 & Team 4");
+        lbLabel0 = new JLabel("                      Player 3 & Player 4");
         gbcPanel0.gridx = 1;
         gbcPanel0.gridy = 5;
         gbcPanel0.gridwidth = 1;
@@ -350,7 +427,7 @@ public class GUI extends JFrame implements ActionListener{
         pnPanel0.add(lbLabel0);
 
         // Label for round winner
-        lbLabel0 = new JLabel("                      Round1 (win)");
+        lbLabel0 = new JLabel("                      Round 1 (win)");
         gbcPanel0.gridx = 3;
         gbcPanel0.gridy = 0;
         gbcPanel0.gridwidth = 1;
@@ -363,7 +440,7 @@ public class GUI extends JFrame implements ActionListener{
         pnPanel0.add(lbLabel0);
 
         // Label for second round winner
-        lbLabel0 = new JLabel("                      Round2 (win)");
+        lbLabel0 = new JLabel("                      Round 2 (win)");
         gbcPanel0.gridx = 3;
         gbcPanel0.gridy = 4;
         gbcPanel0.gridwidth = 1;
@@ -388,25 +465,45 @@ public class GUI extends JFrame implements ActionListener{
         gbPanel0.setConstraints(lbLabel0, gbcPanel0);
         pnPanel0.add(lbLabel0);
 
+        // Adds panel for all labels into frame 
         frame.getContentPane().add(pnPanel0);
         frame.pack();
         frame.setVisible(true);
     }
 
+    /* 
+     * Name: makePanelImage 
+     * Description: Captures the frame 
+     *              Exports the capture into a png file  
+     * @param frame: Entire GUI frame 
+     * 
+     */
     private static void makePanelImage(JFrame frame) {
+
+        // Find the size of the frame to capture the entire frame
         Dimension size = frame.getSize();
+
+        // Captures the area "size" and creates an image
         BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
+
+        // Reders image 
         Graphics2D g2 = image.createGraphics();
+
+        // Draws the everything on the frame into a new image
         frame.paint(g2);
         try {
+            // Creates a new png file instance 
             ImageIO.write(image, "png", new File("TournamentBrackets.png"));
             System.out.println("Image saved as 'TournamentBrackets.png'.");
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
+    // Implements actionLister for every button
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method stub 
         
-    }}
+    }
+}
